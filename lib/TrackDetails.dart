@@ -38,18 +38,20 @@ class TrackDetailPage extends StatelessWidget {
     );
   }
   
+  
 }
 class TrackDetail extends StatelessWidget {
 final id;
 TrackDetail(this.id);
   @override
+  var detailBloc;
   Widget build(BuildContext context) {
-      final counterBloc = BlocProvider.of<TrackDetailBloc>(context);
+      detailBloc = BlocProvider.of<TrackDetailBloc>(context);
 
     return BlocBuilder<TrackDetailBloc, TrackDetailState>(
             builder: (context, state){
               if(state is TrackDetailIsNotLoaded)
-                  counterBloc.add(ViewTrack(id.toString()));
+                  detailBloc.add(ViewTrack(id.toString()));
                   
               if(state is TrackDetailLoadError)
                 return Container(
@@ -65,6 +67,11 @@ TrackDetail(this.id);
             },
           );
 
+  }
+  
+ Widget handle_networkIssue(){
+    detailBloc.add(ResetTrackDetail());
+    return ut.networkerror();
   }
 }
 

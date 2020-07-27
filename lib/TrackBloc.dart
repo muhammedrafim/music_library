@@ -17,6 +17,12 @@ class FetchTracks extends TrackListEvent{
   @override
   List<Object> get props => [];
 }
+class ResetTracks extends TrackListEvent{
+
+
+  @override
+  List<Object> get props => [];
+}
 class TrackListState extends Equatable{
   @override
   List<Object> get props => [];
@@ -64,6 +70,8 @@ class TrackListBloc extends Bloc<TrackListEvent, TrackListState>{
         print(_);
         yield TrackListLoadError();
       }
+    }else if(event is ResetTracks){
+      yield TrackListIsNotLoaded();
     }
     
   }
@@ -163,6 +171,12 @@ final id;
   List<Object> get props => [id];
 }
 
+class ResetTrackDetail extends TrackDetailEvent{
+
+
+  @override
+  List<Object> get props => [];
+}
 
 
 class TrackDetailState extends Equatable{
@@ -215,6 +229,8 @@ class TrackDetailBloc extends Bloc<TrackDetailEvent, TrackDetailState>{
         print(_);
         yield TrackDetailLoadError();
       }
+    }else if(event is ResetTrackDetail){
+      yield TrackDetailIsNotLoaded();
     }  
   }
 

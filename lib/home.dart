@@ -29,14 +29,13 @@ class Home extends StatelessWidget {
 
 class TrackListPage extends StatelessWidget {
   
- 
+ var trackBloc;
   @override
   Widget build(BuildContext context) {
 
   
     var connectionStatus = Provider.of<ConnectivityStatus>(context);
-      final counterBloc = BlocProvider.of<TrackListBloc>(context);
-
+     trackBloc  = BlocProvider.of<TrackListBloc>(context);
     return Scaffold(
         appBar: AppBar(
                 centerTitle: true,
@@ -51,11 +50,12 @@ class TrackListPage extends StatelessWidget {
           ],
 ),
         body:  
-    connectionStatus == ConnectivityStatus.Offline ? ut.networkerror() : 
+    connectionStatus == ConnectivityStatus.Offline ? handle_networkIssue() : 
      BlocBuilder<TrackListBloc, TrackListState>(
           builder: (context, state){
          if(state is TrackListIsNotLoaded)
-                counterBloc.add(FetchTracks());
+              trackBloc.add(FetchTracks());
+                //counterBloc.add(FetchTracks());
               if(state is TrackListLoadError)
               return Container(
                 padding: EdgeInsets.only(left: 32, right: 32,),
@@ -74,6 +74,10 @@ class TrackListPage extends StatelessWidget {
 
       
     ));
+  }
+ Widget handle_networkIssue(){
+    trackBloc.add(ResetTracks());
+    return ut.networkerror();
   }
 }
 class ShowTracks extends StatelessWidget{
