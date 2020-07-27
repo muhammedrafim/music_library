@@ -4,7 +4,6 @@ import 'package:music_library/TrackBloc.dart';
 import 'package:music_library/TrackModel.dart';
 import 'package:music_library/TrackRepo.dart';
 import 'package:music_library/enums/connectivity_status.dart';
-import 'package:music_library/main.dart';
 import 'package:provider/provider.dart';
 import 'package:music_library/util.dart' as ut;
 class TrackDetailPage extends StatelessWidget {
